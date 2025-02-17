@@ -1,0 +1,10 @@
+version: v2
+managed:
+  enabled: true
+plugins:
+  - remote: buf.build/grpc/python:v1.69.0
+    out: ../paper-search-be/paper_search_be
+  - remote: buf.build/protocolbuffers/python
+    out: ../paper-search-be/paper_search_be
+  - remote: buf.build/protocolbuffers/pyi:v29.2
+    out: ../paper-search-be/paper_search_be

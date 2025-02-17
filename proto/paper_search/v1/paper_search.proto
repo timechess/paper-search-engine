@@ -1,0 +1,31 @@
+syntax = "proto3";
+
+package paper_search.v1;
+
+service PaperSearchService {
+  rpc SearchPaper(SearchPaperRequest) returns (SearchPaperResponse);
+  rpc QueryAugmentation(QueryAugmentationRequest) returns (QueryAugmentationResponse);
+}
+
+message Paper {
+  string title = 1;
+  string abstract = 2;
+  repeated string authors = 3;
+}
+
+message SearchPaperRequest {
+  string query = 1;
+  int32 num_results = 2;
+}
+
+message SearchPaperResponse {
+  repeated Paper papers = 1;
+}
+
+message QueryAugmentationRequest {
+  string query = 1;
+}
+
+message QueryAugmentationResponse {
+  string res = 1;
+}

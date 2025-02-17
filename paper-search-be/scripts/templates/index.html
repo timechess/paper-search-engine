@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>编造论文反馈系统</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+    <main>
+        <div class="container">
+            <h1>编造论文反馈系统</h1>
+            <div class="paper-card">
+                <h2 id="paper-title">{{ title }}</h2>
+                <p id="paper-abstract">{{ abstract }}</p>
+                <small>论文ID: <span id="paper-id">{{ paper_id }}</span></small>
+            </div>
+
+            <form method="POST" class="feedback-form">
+                <input type="hidden" name="original_id" id="original-id" value="{{ paper_id }}">
+
+                <div class="form-group">
+                    <label for="user-name">您的姓名：</label>
+                    <input type="text" id="user-name" name="user_name" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="new-title">编造标题：</label>
+                    <input type="text" id="new-title" name="new_title" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="new-abstract">编造摘要：</label>
+                    <textarea id="new-abstract" name="new_abstract" rows="4" required></textarea>
+                </div>
+
+                <div class="button-group">
+                    <button type="submit" name="submit_feedback">提交反馈</button>
+                    <button type="button" id="next-paper">下一篇</button>
+                </div>
+            </form>
+        </div>
+    </main>
+
+    <script>
+        // 处理“下一篇”按钮点击
+        document.getElementById('next-paper').addEventListener('click', function () {
+            fetch('/next')
+                .then(response => response.json())
+                .then(data => {
+                    // 更新页面内容
+                    document.getElementById('paper-title').textContent = data.title;
+                    document.getElementById('paper-abstract').textContent = data.abstract;
+                    document.getElementById('paper-id').textContent = data.paper_id;
+                    document.getElementById('original-id').value = data.paper_id;
+
+                    // 清空表单
+                    document.getElementById('user-name').value = '';
+                    document.getElementById('new-title').value = '';
+                    document.getElementById('new-abstract').value = '';
+                });
+        });
+    </script>
+</body>
+
+</html>
