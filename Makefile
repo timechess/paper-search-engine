@@ -15,6 +15,9 @@ lint:
 	(cd proto && buf lint)
 	(cd ${FRONTEND} && pnpm lint)
 
+dev-fe:
+	(cd $(FRONTEND) && pnpm run dev)
+
 start-be:
 	(cd $(BACKEND) && poetry run python paper_search_be/main.py)
 
